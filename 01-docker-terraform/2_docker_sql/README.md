@@ -87,6 +87,15 @@ conda install -c conda-forge pgcli
 pip install -U mycli
 ```
 
+---
+
+** I had to install it using apt: **
+```bash
+sudo apt-get instal pgcli
+```
+
+---
+
 Using `pgcli` to connect to Postgres
 
 ```bash
@@ -181,6 +190,25 @@ python ingest_data.py \
   --url=${URL}
 ```
 
+---
+
+** As they use the parquet format now, I run the following: **
+
+```bash
+URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-09.parquet"
+
+python data-loading-parquet.py \
+  --user=root \
+  --password=root \
+  --host=localhost \
+  --port=5432 \
+  --db=ny_taxi \
+  --tb=yellow_taxi_trips \
+  --url=${URL}
+```
+
+---
+
 Build the image
 
 ```bash
@@ -219,6 +247,29 @@ docker run -it \
     --table_name=yellow_taxi_trips \
     --url=${URL}
 ```
+
+---
+
+** I run the following (after dropping table to see that it works): **
+
+Note that the host is pg-database as we are using pg-network.
+
+```bash
+URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-09.parquet"
+
+docker run -it \
+  --network=pg-network \
+  taxi_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=pg-database \
+    --port=5432 \
+    --db=ny_taxi \
+    --tb=yellow_taxi_trips \
+    --url=${URL}
+```
+
+---
 
 ### Docker-Compose 
 

@@ -27,6 +27,16 @@ For this course, we'll use a free version (upto EUR 300 credits).
    # Refresh token/session, and verify authentication
    gcloud auth application-default login
    ```
+
+---
+
+**Instead of the previous command (it uses OAuth and opens a web page to confirm access), this is the command that we should use (is in the `windows.md` file): **
+
+```bash
+gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
+```
+
+---
    
 ### Setup for Access
  
@@ -34,6 +44,12 @@ For this course, we'll use a free version (upto EUR 300 credits).
    * Go to the *IAM* section of *IAM & Admin* https://console.cloud.google.com/iam-admin/iam
    * Click the *Edit principal* icon for your service account.
    * Add these roles in addition to *Viewer* : **Storage Admin** + **Storage Object Admin** + **BigQuery Admin**
+
+---
+
+** I think that we have to chose Compute Admin role instead of Storage Object Admin**
+
+---
    
 2. Enable these APIs for your project:
    * https://console.cloud.google.com/apis/library/iam.googleapis.com
